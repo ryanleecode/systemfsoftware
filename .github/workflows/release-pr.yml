@@ -84,10 +84,10 @@ jobs:
             echo "has-changes=false" >> $GITHUB_OUTPUT
           else
             echo "has-changes=true" >> $GITHUB_OUTPUT
-            
+
             # Commit the staged changes
             git commit -m "chore(release): version bump for ${{ github.event.inputs.version }} release"
-            
+
             # Push the release branch
             git push origin "$BRANCH_NAME"
           fi
@@ -95,37 +95,33 @@ jobs:
       # Create Pull Request
       - name: Create Release PR
         if: steps.release-branch.outputs.has-changes == 'true'
-        uses: actions/github-script@v7
+        uses: peter-evans/create-pull-request@v6
         with:
-          script: |
-            const { data: pr } = await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: `🚀 Release: ${{ github.event.inputs.version }} version bump`,
-              head: '${{ steps.release-branch.outputs.branch-name }}',
-              base: 'master',
-              body: `## Release PR
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.release-branch.outputs.branch-name }}
+          title: "🚀 Release: ${{ github.event.inputs.version }} version bump"
+          body: |
+            ## Release PR
 
-              This PR contains version bumps and changelog updates for the next release.
+            This PR contains version bumps and changelog updates for the next release.
 
-              **Release Type:** ${{ github.event.inputs.version }}
+            **Release Type:** ${{ github.event.inputs.version }}
 
-              ### What's included:
-              - Version bumps for affected packages
-              - Updated changelogs
-              - Git tags (will be created after merge)
+            ### What's included:
+            - Version bumps for affected packages
+            - Updated changelogs
+            - Git tags (will be created after merge)
 
-              ### Next steps:
-              1. Review the changes
-              2. Merge this PR
-              3. Run the "Release" workflow to publish packages
+            ### Next steps:
+            1. Review the changes
+            2. Merge this PR
+            3. Run the "Release" workflow to publish packages
 
-              ---
+            ---
 
-              *This PR was created automatically by the Release PR workflow.*`
-            });
-
-            console.log('Created PR:', pr.html_url);
+            *This PR was created automatically by the Release PR workflow.*
+          base: master
+          delete-branch: true
 
       # Comment if no changes
       - name: No changes comment
