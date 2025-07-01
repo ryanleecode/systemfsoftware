@@ -27,13 +27,7 @@
     "test": {
       "executor": "@nx/vite:test",
       "options": {
-        "run": true,
-        "env": {
-          "TESTCONTAINERS_RYUK_DISABLED": "true",
-          "DOCKER_HOST": "unix:///var/run/docker.sock",
-          "TESTCONTAINERS_HOST_OVERRIDE": "localhost",
-          "TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE": "/var/run/docker.sock"
-        }
+        "run": true
       }
     }
   },
