@@ -69,15 +69,21 @@ jobs:
 
           git checkout -b "$BRANCH_NAME"
 
-          # Run nx release version to bump versions and update changelogs
-          pnpm exec nx release version ${{ github.event.inputs.version }} --verbose
+          # Run nx release version to bump versions and update changelogs (no auto-commit)
+          pnpm exec nx release version ${{ github.event.inputs.version }} --git-commit=false --git-tag=false --verbose
 
-          # Check if there are any changes
+          # Check if there are any changes to commit
           if git diff --quiet; then
             echo "No changes to release"
             echo "has-changes=false" >> $GITHUB_OUTPUT
           else
             echo "has-changes=true" >> $GITHUB_OUTPUT
+            
+            # Commit the changes ourselves
+            git add .
+            git commit -m "chore(release): version bump for ${{ github.event.inputs.version }} release"
+            
+            # Push the release branch
             git push origin "$BRANCH_NAME"
           fi
 
