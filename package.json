@@ -1,0 +1,39 @@
+{
+  "name": "@systemfsoftware/source",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "nx run-many -t build",
+    "test": "nx run-many -t test",
+    "test:coverage": "nx run-many -t test --coverage",
+    "format": "dprint fmt",
+    "format:check": "dprint check",
+    "format:affected": "nx affected -t format",
+    "format:check:affected": "nx affected -t format:check",
+    "release:version": "nx release version",
+    "release:publish": "nx release publish",
+    "release:changelog": "nx release changelog",
+    "release:dry-run": "nx release version --dry-run",
+    "commit": "./scripts/commit.sh"
+  },
+  "private": true,
+  "devDependencies": {
+    "@effect/language-service": "^0.23.4",
+    "@nx/js": "21.2.1",
+    "@nx/vite": "21.2.1",
+    "@nx/web": "21.2.1",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "^3.0.0",
+    "dprint": "^0.50.1",
+    "fast-check": "^4.1.1",
+    "jiti": "2.4.2",
+    "nx": "21.2.1",
+    "rimraf": "^6.0.1",
+    "testcontainers": "^11.0.3",
+    "tshy": "^3.0.2",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0"
+  },
+  "packageManager": "pnpm@10.12.4+sha512.5ea8b0deed94ed68691c9bad4c955492705c5eeb8a87ef86bc62c74a26b037b08ff9570f108b2e4dbd1dd1a9186fea925e527f141c648e85af45631074680184"
+}

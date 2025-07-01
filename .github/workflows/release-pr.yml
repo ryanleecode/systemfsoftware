@@ -1,0 +1,123 @@
+name: Release PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release type"
+        required: true
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - patch
+          - minor
+          - major
+          - prerelease
+
+# Minimal permissions
+permissions:
+  contents: write
+  pull-requests: write
+
+# Cancel in-progress release PR runs
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  create-release-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Set up pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      # Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Configure git
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Create release branch and version bump
+      - name: Create release branch
+        id: release-branch
+        run: |
+          BRANCH_NAME="release/$(date +%Y%m%d-%H%M%S)"
+          echo "branch-name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+          git checkout -b "$BRANCH_NAME"
+
+          # Run nx release version to bump versions and update changelogs
+          pnpm exec nx release version ${{ github.event.inputs.version }} --skip-publish --verbose
+
+          # Check if there are any changes
+          if git diff --quiet; then
+            echo "No changes to release"
+            echo "has-changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has-changes=true" >> $GITHUB_OUTPUT
+            git push origin "$BRANCH_NAME"
+          fi
+
+      # Create Pull Request
+      - name: Create Release PR
+        if: steps.release-branch.outputs.has-changes == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `🚀 Release: ${{ github.event.inputs.version }} version bump`,
+              head: '${{ steps.release-branch.outputs.branch-name }}',
+              base: 'master',
+              body: `## Release PR
+
+              This PR contains version bumps and changelog updates for the next release.
+
+              **Release Type:** ${{ github.event.inputs.version }}
+
+              ### What's included:
+              - Version bumps for affected packages
+              - Updated changelogs
+              - Git tags (will be created after merge)
+
+              ### Next steps:
+              1. Review the changes
+              2. Merge this PR
+              3. Run the "Release" workflow to publish packages
+
+              ---
+
+              *This PR was created automatically by the Release PR workflow.*`
+            });
+
+            console.log('Created PR:', pr.html_url);
+
+      # Comment if no changes
+      - name: No changes comment
+        if: steps.release-branch.outputs.has-changes == 'false'
+        run: |
+          echo "ℹ️ No changes detected for release. All packages are up to date."

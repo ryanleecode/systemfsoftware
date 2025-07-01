@@ -1,0 +1,52 @@
+{
+  "name": "@systemfsoftware/node",
+  "version": "0.0.1",
+  "type": "module",
+  "module": "./dist/esm/mod.js",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "@systemfsoftware/source": "./src/mod.ts",
+        "types": "./dist/esm/mod.d.ts",
+        "default": "./dist/esm/mod.js"
+      }
+    },
+    "./Fetch": {
+      "import": {
+        "@systemfsoftware/source": "./src/Fetch.ts",
+        "types": "./dist/esm/Fetch.d.ts",
+        "default": "./dist/esm/Fetch.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "tshy": {
+    "project": "./tsconfig.build.json",
+    "exports": {
+      "./package.json": "./package.json",
+      ".": "./src/mod.ts",
+      "./Fetch": "./src/Fetch.ts"
+    },
+    "dialects": [
+      "esm"
+    ],
+    "exclude": [
+      "src/**/*.test.ts"
+    ],
+    "sourceDialects": [
+      "@systemfsoftware/source"
+    ]
+  },
+  "dependencies": {
+    "undici": "^7.11.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

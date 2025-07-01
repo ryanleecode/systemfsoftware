@@ -1,90 +1,85 @@
-# Systemfsoftware
+# SystemF Software
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A TypeScript monorepo for SystemF software packages, built with [Nx](https://nx.dev).
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## 🚀 Quick Start
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+```bash
+# Install dependencies
+pnpm install
 
-## Finish your CI setup
+# Run tests
+pnpm test
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/E7E4SZEOD2)
+# Build packages
+pnpm exec nx run-many -t build
 
-
-## Generate a library
-
-```sh
-npx nx g @nx/js:lib packages/pkg1 --publishable --importPath=@my-org/pkg1
+# Preview next release
+pnpm run release:dry-run
 ```
 
-## Run tasks
+## 📦 Packages
 
-To build the library use:
+- **`@systemfsoftware/node`** - Node.js library package
 
-```sh
-npx nx build pkg1
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed development guidelines, including:
+
+- Development setup and workflow
+- Conventional commit standards
+- Release process with Nx Release
+- Testing guidelines
+- Code style requirements
+
+## 🔧 Development
+
+### Running Tasks
+
+```bash
+# Run affected tests only (fast)
+pnpm exec nx affected -t test
+
+# Build specific project
+pnpm exec nx build node
+
+# View project graph
+pnpm exec nx graph
 ```
 
-To run any task with Nx use:
+### Creating Commits
 
-```sh
-npx nx <target> <project-name>
+```bash
+# Interactive conventional commit helper
+pnpm run commit
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+## 📋 Release Management
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+This monorepo uses **Nx Release** for independent package versioning:
 
-## Versioning and releasing
+- ✅ Automatic version bumps from conventional commits
+- ✅ Generated changelogs from commit history
+- ✅ Independent package versioning
+- ✅ GitHub releases with NPM publishing
 
-To version and release the library use
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed release process.
 
-```
-npx nx release
-```
+## 🏗️ Architecture
 
-Pass `--dry-run` to see what would happen without actually releasing the library.
+- **Nx Monorepo** - Task orchestration and caching
+- **TypeScript** - Type-safe development
+- **Vitest** - Fast unit testing
+- **pnpm** - Efficient package management
+- **Conventional Commits** - Automated versioning
+- **GitHub Actions** - CI/CD pipeline
 
-[Learn more about Nx release &raquo;](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## 📚 Learn More
 
-## Keep TypeScript project references up to date
+- [Nx Documentation](https://nx.dev)
+- [Contributing Guidelines](./CONTRIBUTING.md)
+- [Conventional Commits](https://www.conventionalcommits.org/)
 
-Nx automatically updates TypeScript [project references](https://www.typescriptlang.org/docs/handbook/project-references.html) in `tsconfig.json` files to ensure they remain accurate based on your project dependencies (`import` or `require` statements). This sync is automatically done when running tasks such as `build` or `typecheck`, which require updated references to function correctly.
+---
 
-To manually trigger the process to sync the project graph dependencies information to the TypeScript project references, run the following command:
-
-```sh
-npx nx sync
-```
-
-You can enforce that the TypeScript project references are always in the correct state when running in CI by adding a step to your CI job configuration that runs the following command:
-
-```sh
-npx nx sync:check
-```
-
-[Learn more about nx sync](https://nx.dev/reference/nx-commands#sync)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/nx-api/js?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Built with ❤️ using Nx

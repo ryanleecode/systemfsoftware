@@ -1,0 +1,17 @@
+{
+  "servers": {
+    "nx-mcp": {
+      "type": "http",
+      "url": "http://localhost:9615/mcp"
+    },
+    "context7": {
+      "command": "deno",
+      "args": [
+        "run",
+        "--allow-net",
+        "--allow-env=NO_DEPRECATION,TRACE_DEPRECATION",
+        "npm:@upstash/context7-mcp@1.0.14"
+      ]
+    }
+  }
+}

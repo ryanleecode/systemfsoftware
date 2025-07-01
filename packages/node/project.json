@@ -1,0 +1,41 @@
+{
+  "name": "node",
+  "sourceRoot": "packages/node/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["clean"],
+      "cache": true,
+      "outputs": [
+        "{projectRoot}/dist",
+        "!{projectRoot}/dist/node_modules",
+        "{projectRoot}/.tshy"
+      ],
+      "options": {
+        "command": "tshy",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "clean": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "rimraf dist",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "run": true,
+        "env": {
+          "TESTCONTAINERS_RYUK_DISABLED": "true",
+          "DOCKER_HOST": "unix:///var/run/docker.sock",
+          "TESTCONTAINERS_HOST_OVERRIDE": "localhost",
+          "TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE": "/var/run/docker.sock"
+        }
+      }
+    }
+  },
+  "tags": []
+}

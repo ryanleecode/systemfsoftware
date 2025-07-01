@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  pull_request:
+    branches: ["master"]
+  push:
+    branches: ["master"]
+
+# Minimal permissions - only what's needed
+permissions:
+  actions: read
+  contents: read
+
+# Cancel in-progress runs for the same workflow and ref
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@v2
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        timeout-minutes: 5
+
+      - name: Set Nx SHAs
+        uses: nrwl/nx-set-shas@v4
+
+      # Parallel execution of all CI tasks with caching (no distributed execution)
+      - name: Type Check
+        run: pnpm exec nx affected -t typecheck --parallel=2 --verbose
+        timeout-minutes: 10
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+      - name: Format Check
+        run: pnpm exec nx affected -t format:check --parallel=2 --verbose
+        timeout-minutes: 5
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+      - name: Tests
+        run: pnpm exec nx affected -t test --parallel=3 --verbose
+        timeout-minutes: 15
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+          CI: true
+          # Docker/Testcontainers configuration
+          TESTCONTAINERS_RYUK_DISABLED: "true"
+          DOCKER_HOST: "unix:///var/run/docker.sock"
+          TESTCONTAINERS_HOST_OVERRIDE: "localhost"
+          TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE: "/var/run/docker.sock"
+
+      - name: Build
+        run: pnpm exec nx affected -t build --parallel=3 --verbose
+        timeout-minutes: 10
+        env:
+          NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results-${{ github.run_id }}
+          path: |
+            coverage/
+            **/coverage/
+          retention-days: 30
