@@ -78,15 +78,14 @@ jobs:
             pnpm exec nx release version ${{ github.event.inputs.version }} --git-commit=false --git-tag=false --verbose
           fi
 
-          # Check if there are any changes to commit
-          if git diff --quiet; then
+          # Check if there are any staged changes (Nx Release auto-stages files)
+          if git diff --cached --quiet; then
             echo "No changes to release"
             echo "has-changes=false" >> $GITHUB_OUTPUT
           else
             echo "has-changes=true" >> $GITHUB_OUTPUT
             
-            # Commit the changes ourselves
-            git add .
+            # Commit the staged changes
             git commit -m "chore(release): version bump for ${{ github.event.inputs.version }} release"
             
             # Push the release branch
