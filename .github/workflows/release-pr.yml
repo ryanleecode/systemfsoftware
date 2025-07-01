@@ -70,7 +70,13 @@ jobs:
           git checkout -b "$BRANCH_NAME"
 
           # Run nx release version to bump versions and update changelogs (no auto-commit)
-          pnpm exec nx release version ${{ github.event.inputs.version }} --git-commit=false --git-tag=false --verbose
+          if [ "${{ github.event.inputs.version }}" = "auto" ]; then
+            echo "🤖 Using automatic version detection from conventional commits..."
+            pnpm exec nx release version --git-commit=false --git-tag=false --verbose
+          else
+            echo "📌 Using manual version specifier: ${{ github.event.inputs.version }}"
+            pnpm exec nx release version ${{ github.event.inputs.version }} --git-commit=false --git-tag=false --verbose
+          fi
 
           # Check if there are any changes to commit
           if git diff --quiet; then
