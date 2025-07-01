@@ -70,7 +70,7 @@ jobs:
           git checkout -b "$BRANCH_NAME"
 
           # Run nx release version to bump versions and update changelogs
-          pnpm exec nx release version ${{ github.event.inputs.version }} --skip-publish --verbose
+          pnpm exec nx release version ${{ github.event.inputs.version }} --verbose
 
           # Check if there are any changes
           if git diff --quiet; then
