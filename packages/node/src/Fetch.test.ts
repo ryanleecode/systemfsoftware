@@ -281,4 +281,48 @@ console.log(\`Test server running on port \${server.port}\`);`,
       expect(typeof proxiedFetch).toBe('function')
     })
   })
+
+  describe('cross-realm Request handling', () => {
+    it('should handle Request objects with undici fetch to avoid cross-realm issues', async () => {
+      // Import undici's fetch to simulate the cross-realm issue
+      const { fetch: undiciFetch } = await import('undici')
+      const fetchWithProxy = createFetchWithProxy(undiciFetch)
+      
+      const targetUrl = `http://${targetContainer.getHost()}:${targetContainer.getMappedPort(3000)}/success`
+      
+      // Create a global Request object
+      const request = new Request(targetUrl, {
+        method: 'GET',
+        headers: { 'X-Test': 'cross-realm' }
+      })
+      
+      // This should not throw "Failed to parse URL from [object Request]"
+      const response = await fetchWithProxy(request)
+      expect(response.ok).toBe(true)
+      
+      const text = await response.text()
+      expect(text).toBe('SUCCESS_FROM_BUN_CONTAINER')
+    })
+
+    it('should properly merge Request properties with init options', async () => {
+      const { fetch: undiciFetch } = await import('undici')
+      const fetchWithProxy = createFetchWithProxy(undiciFetch)
+      
+      const targetUrl = `http://${targetContainer.getHost()}:${targetContainer.getMappedPort(3000)}/success`
+      
+      // Create a Request with some properties
+      const request = new Request(targetUrl, {
+        method: 'POST',
+        headers: { 'X-Request': 'from-request' }
+      })
+      
+      // Override some properties in init (should take precedence)
+      const response = await fetchWithProxy(request, {
+        method: 'GET', // This should override the POST from Request
+        headers: { 'X-Init': 'from-init' } // This should be added
+      })
+      
+      expect(response.ok).toBe(true)
+    })
+  })
 })

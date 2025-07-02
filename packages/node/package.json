@@ -43,10 +43,16 @@
       "@systemfsoftware/source"
     ]
   },
-  "dependencies": {
-    "undici": "^7.11.0"
+  "peerDependencies": {
+    "undici": "^7.0.0"
+  },
+  "peerDependenciesMeta": {
+    "undici": {
+      "optional": true
+    }
   },
   "devDependencies": {
+    "undici": "^7.11.0",
     "typescript": "^5.8.3"
   }
 }

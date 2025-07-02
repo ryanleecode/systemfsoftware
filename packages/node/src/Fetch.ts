@@ -1,4 +1,5 @@
 import { ProxyAgent } from 'undici'
+import type { fetch as undiciFetch } from 'undici'
 
 /**
  * Proxy configuration for fetch requests
@@ -13,51 +14,102 @@ export interface FetchWithProxyInit extends RequestInit {
   proxy?: string | URL | ProxyConfig
 }
 
+type CompatibleFetch = typeof globalThis.fetch | typeof undiciFetch
+
+function isRequestLike(input: unknown): input is Request {
+  return !!(
+    input &&
+    typeof input === 'object' &&
+    'url' in input &&
+    'method' in input &&
+    'headers' in input
+  )
+}
+
+function normalizeRequestInput(input: string | URL | Request): [string | URL, RequestInit] {
+  if (isRequestLike(input)) {
+    return [
+      input.url,
+      {
+        method: input.method,
+        headers: new Headers(input.headers),
+        body: input.body,
+        referrer: input.referrer,
+        referrerPolicy: input.referrerPolicy,
+        mode: input.mode,
+        credentials: input.credentials,
+        cache: input.cache,
+        redirect: input.redirect,
+        integrity: input.integrity,
+        signal: input.signal,
+      },
+    ]
+  }
+  return [input, {}]
+}
+
+function normalizeProxy(proxy: string | URL | ProxyConfig): ProxyConfig {
+  if (typeof proxy === 'string' || proxy instanceof URL) {
+    return { url: proxy.toString() }
+  }
+  return proxy
+}
+
+function createProxyAgent(proxyConfig: ProxyConfig): ProxyAgent {
+  const proxyUrl = new URL(proxyConfig.url)
+  const proxyOptions: { uri: string; token?: string } = {
+    uri: `${proxyUrl.protocol}//${proxyUrl.host}`,
+  }
+
+  if (proxyUrl.username && proxyUrl.password) {
+    proxyOptions.token = `Basic ${Buffer.from(`${proxyUrl.username}:${proxyUrl.password}`).toString('base64')}`
+  } else if (proxyConfig.username && proxyConfig.password) {
+    proxyOptions.token = `Basic ${Buffer.from(`${proxyConfig.username}:${proxyConfig.password}`).toString('base64')}`
+  }
+
+  return new ProxyAgent(proxyOptions)
+}
+
 /**
  * Creates a fetch function with proxy support
+ *
+ * Automatically normalizes Request objects to avoid cross-realm issues with undici.
+ *
+ * @example
+ * ```typescript
+ * import { createFetchWithProxy } from '@systemfsoftware/node'
+ * import { fetch as undiciFetch } from 'undici'
+ *
+ * const fetch = createFetchWithProxy()
+ * const fetchWithUndici = createFetchWithProxy(undiciFetch)
+ *
+ * const response = await fetch('https://api.example.com', {
+ *   proxy: 'http://proxy.example.com:8080'
+ * })
+ * ```
  */
-export function createFetchWithProxy(baseFetch = globalThis.fetch) {
+export function createFetchWithProxy(baseFetch: CompatibleFetch = globalThis.fetch) {
   return async function fetchWithProxy(
     input: string | URL | Request,
     init?: FetchWithProxyInit,
   ): Promise<Response> {
     const { proxy, ...fetchInit } = init || {}
+    const [normalizedInput, requestInit] = normalizeRequestInput(input)
+    const mergedInit = { ...requestInit, ...fetchInit }
 
     if (!proxy) {
-      return baseFetch(input, fetchInit)
+      return baseFetch(normalizedInput, mergedInit)
     }
 
-    // Normalize proxy to ProxyConfig
-    let proxyConfig: ProxyConfig
-    if (typeof proxy === 'string' || proxy instanceof URL) {
-      proxyConfig = { url: proxy.toString() }
-    } else {
-      proxyConfig = proxy
-    }
-
-    // Parse proxy URL to extract credentials
-    const proxyUrl = new URL(proxyConfig.url)
-    const proxyOptions: { uri: string; token?: string } = { 
-      uri: `${proxyUrl.protocol}//${proxyUrl.host}` 
-    }
-
-    // Check for credentials in URL (like http://user:pass@proxy.com:8000)
-    if (proxyUrl.username && proxyUrl.password) {
-      proxyOptions.token = `Basic ${Buffer.from(`${proxyUrl.username}:${proxyUrl.password}`).toString('base64')}`
-    }
-    // Fallback to explicit username/password
-    else if (proxyConfig.username && proxyConfig.password) {
-      proxyOptions.token = `Basic ${Buffer.from(`${proxyConfig.username}:${proxyConfig.password}`).toString('base64')}`
-    }
-
-    const proxyAgent = new ProxyAgent(proxyOptions)
+    const proxyConfig = normalizeProxy(proxy)
+    const proxyAgent = createProxyAgent(proxyConfig)
 
     const modifiedInit: RequestInit = {
-      ...fetchInit,
+      ...mergedInit,
       dispatcher: proxyAgent,
     }
 
-    return baseFetch(input, modifiedInit)
+    return baseFetch(normalizedInput, modifiedInit)
   }
 }
 
