@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "nx run-many -t build",
+    "prepublishOnly": "nx run-many -t typecheck test build",
     "test": "nx run-many -t test",
     "test:coverage": "nx run-many -t test --coverage",
     "format": "dprint fmt",

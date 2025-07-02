@@ -43,6 +43,9 @@
       "@systemfsoftware/source"
     ]
   },
+  "scripts": {
+    "prepublishOnly": "nx build node"
+  },
   "peerDependencies": {
     "undici": "^7.0.0"
   },
