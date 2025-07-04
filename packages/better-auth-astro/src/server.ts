@@ -106,7 +106,7 @@ export function AstroAuth(options: FullAuthConfig = authConfig) {
  * @param req The request object.
  * @returns The current session, or `null` if there is no session.
  */
-export async function getSession(req: Request, options: FullAuthConfig = authConfig): Promise<Session | null> {
+export async function getSession<T extends Record<string, any> = {}>(req: Request, options: FullAuthConfig = authConfig): Promise<(Session & T) | null> {
   // @ts-ignore
   options.secret ??= import.meta.env.AUTH_SECRET
   options.trustHost ??= true

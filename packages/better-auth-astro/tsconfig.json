@@ -2,7 +2,10 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
+    "verbatimModuleSyntax": true,
     "incremental": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "types": [
       "astro/client"
     ],

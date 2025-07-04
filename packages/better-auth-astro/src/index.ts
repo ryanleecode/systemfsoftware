@@ -1,5 +1,5 @@
-import integration from './integration'
+import integration from './integration.js'
 
 export type Integration = typeof integration
 export default integration
-export { defineConfig } from './config'
+export { defineConfig } from './config.js'

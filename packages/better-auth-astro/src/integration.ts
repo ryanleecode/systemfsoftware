@@ -1,11 +1,11 @@
 import { addVitePlugin, defineIntegration } from 'astro-integration-kit'
 import { z } from 'astro/zod'
 import { dirname, join } from 'node:path'
-import { virtualConfigModule } from './config'
+import { virtualConfigModule } from './config.js'
 
 export default defineIntegration({
-  name: 'astro-auth',
-  optionsSchema: z.object({
+  name: 'better-auth-astro',
+  optionsSchema: z.optional(z.object({
     /**
      * Defines the base path for the auth routes.
      * @default '/api/auth'
@@ -20,7 +20,7 @@ export default defineIntegration({
      * Path to the config file
      */
     configFile: z.string().optional(),
-  }),
+  })),
   setup({ name, options }) {
     return {
       name,
@@ -34,7 +34,7 @@ export default defineIntegration({
           } = params
 
           addVitePlugin(params, {
-            plugin: virtualConfigModule(options.configFile),
+            plugin: virtualConfigModule(options?.configFile),
             warnDuplicated: true,
           })
 
@@ -44,9 +44,9 @@ export default defineIntegration({
             },
           })
 
-          if (options.injectEndpoints) {
+          if (options?.injectEndpoints) {
             const currentDir = dirname(import.meta.url.replace('file://', ''))
-            const entrypoint = join(`${currentDir}/api/[...auth].ts`)
+            const entrypoint = join(`${currentDir}/api/[...auth].js`)
             injectRoute({
               pattern: `${options.prefix}/[...auth]`,
               entrypoint,

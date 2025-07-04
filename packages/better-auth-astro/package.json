@@ -1,7 +1,7 @@
 {
   "name": "better-auth-astro",
   "description": "The easiest way to add authentication to your Astro project!",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "type": "module",
   "license": "MIT",
   "exports": {
@@ -9,22 +9,22 @@
     ".": {
       "import": {
         "@systemfsoftware/source": "./src/index.ts",
-        "types": "./dist/esm/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     },
     "./client": {
       "import": {
         "@systemfsoftware/source": "./src/client.ts",
-        "types": "./dist/esm/client.d.ts",
-        "default": "./dist/esm/client.js"
+        "types": "./dist/client.d.ts",
+        "default": "./dist/client.js"
       }
     },
     "./server": {
       "import": {
         "@systemfsoftware/source": "./src/server.ts",
-        "types": "./dist/esm/server.d.ts",
-        "default": "./dist/esm/server.js"
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
       }
     },
     "./components": {
@@ -35,9 +35,13 @@
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "virtual.d.ts"
   ],
-  "repository": "https://ryanleecode/systemfsoftware.git",
+  "repository": {
+    "type": "git",
+    "url": "https://ryanleecode/systemfsoftware.git"
+  },
   "author": "Ryan Lee <ryanleecode@gmail.com>",
   "contributors": [],
   "peerDependencies": {
