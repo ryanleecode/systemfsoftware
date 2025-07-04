@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "incremental": true,
+    "types": [
+      "astro/client"
+    ],
+    "customConditions": [
+      "@systemfsoftware/source"
+    ]
+  },
+  "include": [
+    "src",
+    "virtual.d.ts",
+    "tsup.config.ts"
+  ]
+}

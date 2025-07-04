@@ -80,11 +80,13 @@
     }
   },
   "projects": [
-    "packages/node"
+    "packages/*"
   ],
   "nxCloudId": "68641efd55701e34feead6e4",
   "release": {
-    "projects": ["packages/*"],
+    "projects": [
+      "packages/*"
+    ],
     "projectsRelationship": "independent",
     "changelog": {
       "workspaceChangelog": {

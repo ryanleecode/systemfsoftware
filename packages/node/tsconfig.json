@@ -8,7 +8,7 @@
         "name": "@effect/language-service"
       }
     ],
-    "customConditions": ["@younna/source"]
+    "customConditions": ["@systemfsoftware/source"]
   },
   "include": ["src"]
 }

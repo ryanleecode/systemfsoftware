@@ -1,0 +1,118 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Context7 MCP Integration Rule
+
+## Core Principle
+Automatically leverage Context7 MCP for up-to-date library documentation whenever libraries are mentioned in user queries, especially for implementation tasks, troubleshooting, or when current information is critical.
+
+## When to Use Context7 MCP
+
+### Automatic Triggers (No Explicit Request Needed)
+1. **Library Implementation Tasks**: When user asks to implement, integrate, or use specific libraries
+2. **Version-Specific Questions**: When user mentions specific versions or asks about "latest" features
+3. **API/Method Usage**: When user needs help with specific library APIs, hooks, methods, or configurations
+4. **Troubleshooting**: When user reports issues with specific libraries
+5. **Best Practices**: When user asks for recommended patterns or approaches with specific libraries
+6. **Migration/Upgrade**: When user mentions updating or migrating between library versions
+
+### Explicit Triggers
+- User mentions "consult Context7", "check latest docs", "get current info", or similar phrases
+- User asks for "up-to-date" or "current" information about libraries
+
+## Library Detection Patterns
+Automatically detect these types of library mentions:
+- **Frontend Frameworks**: React, Vue, Angular, Svelte, Next.js, Nuxt, etc.
+- **State Management**: Redux, Zustand, Jotai, Valtio, etc.
+- **Form Libraries**: React Hook Form, Formik, React Final Form, etc.
+- **Validation**: Zod, Yup, Joi, Effect Schema, etc.
+- **Styling**: Tailwind CSS, Styled Components, Emotion, etc.
+- **Testing**: Jest, Vitest, Testing Library, Playwright, etc.
+- **Build Tools**: Vite, Webpack, Rollup, Parcel, etc.
+- **Backend**: Express, Fastify, Koa, NestJS, etc.
+- **Databases**: Prisma, Drizzle, TypeORM, Mongoose, etc.
+- **Any npm package name or GitHub repository mentioned**
+
+## Implementation Workflow
+
+### Step 1: Library Recognition
+- Scan user query for library names, package names, or framework mentions
+- Identify the primary libraries that need documentation
+- Prioritize libraries that are central to the user's request
+
+### Step 2: Context7 MCP Resolution
+- Use `mcp_context7_resolve-library-id` for each identified library
+- Handle cases where library names might not match exactly (try variations)
+- If resolution fails, note it but continue with other libraries
+
+### Step 3: Documentation Retrieval
+- Use `mcp_context7_get-library-docs` with appropriate topic focus
+- Set token limits based on complexity (5000+ for complex implementations)
+- Focus topics on user's specific needs (e.g., "hooks", "validation", "configuration")
+
+### Step 4: Integration
+- Seamlessly incorporate Context7 information into responses
+- Provide code examples using the latest API patterns
+- Reference specific version information when available
+- Combine multiple library docs when user needs integration patterns
+
+## Response Guidelines
+
+### Always Include
+- Latest API patterns and recommended approaches
+- Current version compatibility information
+- Working code examples using up-to-date syntax
+- Links to official documentation when provided by Context7
+
+### Acknowledge Source
+- Briefly mention "based on current documentation" or "using latest library patterns"
+- Don't over-emphasize the Context7 source unless user specifically asked for it
+
+### Error Handling
+- If Context7 lookup fails, proceed with general knowledge but note limitations
+- Suggest checking official docs if Context7 data seems outdated
+- Gracefully handle library name resolution failures
+
+## Examples
+
+### Automatic Usage (No Explicit Request)
+**User**: "How do I validate forms with React Hook Form and Zod?"
+
+**AI Response**: "I'll get the latest documentation for React Hook Form and Zod to provide you with current best practices..."
+*[Automatically uses Context7 MCP for both libraries]*
+
+### Implementation Focus
+**User**: "Set up Prisma with PostgreSQL in my Next.js app"
+
+**AI Response**: "Let me consult the current Prisma and Next.js documentation to ensure I'm using the latest setup patterns..."
+*[Uses Context7 for Prisma and Next.js, focuses on "setup" and "postgresql" topics]*
+
+### Troubleshooting
+**User**: "My Tailwind classes aren't working in my Vite project"
+
+**AI Response**: "I'll check the current Tailwind CSS and Vite integration docs to help troubleshoot this..."
+*[Uses Context7 for both, focuses on "vite" and "configuration" topics]*
+
+## Advanced Usage
+
+### Topic Focusing
+- For specific use cases, use targeted topics in Context7 queries
+- Examples: "hooks", "typescript", "configuration", "migration", "performance"
+
+### Multi-Library Integration
+- When user needs multiple libraries working together, fetch docs for all relevant libraries
+- Look for integration patterns and compatibility information
+
+### Version-Specific Queries
+- When user mentions specific versions, include version info in Context7 queries
+- Note any version-specific differences in responses
+
+## Fallback Strategy
+If Context7 MCP is unavailable or fails:
+1. Use general knowledge but clearly state limitations
+2. Recommend checking official documentation
+3. Provide best-effort guidance with caveats about currency
+
+This rule ensures Context7 MCP becomes a seamless part of the development workflow, providing users with the most current and accurate library information without requiring explicit requests.

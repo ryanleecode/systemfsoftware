@@ -130,12 +130,12 @@ console.log(\`Test server running on port \${server.port}\`);`,
 
     it('should extract credentials from URL properly', async () => {
       const fetchWithProxy = createFetchWithProxy()
-      
+
       // Test that the function doesn't throw on URL parsing
       // We can't easily test the actual credential extraction without a real proxy,
       // but we can verify the URL parsing works
       const proxyWithComplexAuth = 'http://user%40domain.com:p%40ssw0rd@proxy.example.com:8080'
-      
+
       await expect(
         fetchWithProxy('http://example.com', { proxy: proxyWithComplexAuth }),
       ).rejects.toThrow() // Proxy doesn't exist, but URL parsing should work
@@ -287,19 +287,19 @@ console.log(\`Test server running on port \${server.port}\`);`,
       // Import undici's fetch to simulate the cross-realm issue
       const { fetch: undiciFetch } = await import('undici')
       const fetchWithProxy = createFetchWithProxy(undiciFetch)
-      
+
       const targetUrl = `http://${targetContainer.getHost()}:${targetContainer.getMappedPort(3000)}/success`
-      
+
       // Create a global Request object
       const request = new Request(targetUrl, {
         method: 'GET',
-        headers: { 'X-Test': 'cross-realm' }
+        headers: { 'X-Test': 'cross-realm' },
       })
-      
+
       // This should not throw "Failed to parse URL from [object Request]"
       const response = await fetchWithProxy(request)
       expect(response.ok).toBe(true)
-      
+
       const text = await response.text()
       expect(text).toBe('SUCCESS_FROM_BUN_CONTAINER')
     })
@@ -307,21 +307,21 @@ console.log(\`Test server running on port \${server.port}\`);`,
     it('should properly merge Request properties with init options', async () => {
       const { fetch: undiciFetch } = await import('undici')
       const fetchWithProxy = createFetchWithProxy(undiciFetch)
-      
+
       const targetUrl = `http://${targetContainer.getHost()}:${targetContainer.getMappedPort(3000)}/success`
-      
+
       // Create a Request with some properties
       const request = new Request(targetUrl, {
         method: 'POST',
-        headers: { 'X-Request': 'from-request' }
+        headers: { 'X-Request': 'from-request' },
       })
-      
+
       // Override some properties in init (should take precedence)
       const response = await fetchWithProxy(request, {
         method: 'GET', // This should override the POST from Request
-        headers: { 'X-Init': 'from-init' } // This should be added
+        headers: { 'X-Init': 'from-init' }, // This should be added
       })
-      
+
       expect(response.ok).toBe(true)
     })
   })

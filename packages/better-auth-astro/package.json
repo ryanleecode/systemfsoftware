@@ -1,0 +1,76 @@
+{
+  "name": "better-auth-astro",
+  "description": "The easiest way to add authentication to your Astro project!",
+  "version": "5.0.0",
+  "type": "module",
+  "license": "MIT",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": {
+        "@systemfsoftware/source": "./src/index.ts",
+        "types": "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
+    },
+    "./client": {
+      "import": {
+        "@systemfsoftware/source": "./src/client.ts",
+        "types": "./dist/esm/client.d.ts",
+        "default": "./dist/esm/client.js"
+      }
+    },
+    "./server": {
+      "import": {
+        "@systemfsoftware/source": "./src/server.ts",
+        "types": "./dist/esm/server.d.ts",
+        "default": "./dist/esm/server.js"
+      }
+    },
+    "./components": {
+      "import": {
+        "default": "./src/components.ts"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": "https://ryanleecode/systemfsoftware.git",
+  "author": "Ryan Lee <ryanleecode@gmail.com>",
+  "contributors": [],
+  "peerDependencies": {
+    "@auth/core": "^0.37.3",
+    "astro": "^5"
+  },
+  "devDependencies": {
+    "@auth/core": "^0.37.3",
+    "@total-typescript/tsconfig": "^1.0.4",
+    "@types/node": "^18",
+    "@types/set-cookie-parser": "^2.4.10",
+    "astro": "^5",
+    "astro-integration-kit": "^0.18.0",
+    "next-auth": "^4.24.10",
+    "tsup": "^8.5.0",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "set-cookie-parser": "^2.7.1"
+  },
+  "keywords": [
+    "astro",
+    "auth",
+    "authentication",
+    "integration",
+    "@auth",
+    "@auth/core",
+    "authjs",
+    "jwt",
+    "oauth",
+    "astro-auth",
+    "astro-integration",
+    "astro-component",
+    "withastro"
+  ]
+}
