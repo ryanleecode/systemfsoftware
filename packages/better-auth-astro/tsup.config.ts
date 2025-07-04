@@ -14,7 +14,7 @@ export default defineConfig({
   target: 'es2022',
   bundle: false,
   dts: {
-    entry: ['src/index.ts', 'src/client.ts', 'src/server.ts'],
+    entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts'],
     banner: '/// <reference path="../virtual.d.ts" />\n',
   },
   sourcemap: false,
