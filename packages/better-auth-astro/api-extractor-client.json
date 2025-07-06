@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "extends": "./api-extractor-base.json",
+  "mainEntryPointFilePath": "./dist/client.d.ts",
+  "apiReport": {
+    "enabled": true,
+    "reportFolder": "./api-reports/",
+    "reportFileName": "better-auth-astro-client.api.md",
+    "reportTempFolder": "./temp/"
+  },
+  "docModel": {
+    "enabled": true,
+    "apiJsonFilePath": "./api-models/better-auth-astro-client.api.json"
+  },
+  "dtsRollup": {
+    "enabled": true,
+    "untrimmedFilePath": "./dist/rollup/better-auth-astro-client.d.ts"
+  }
+}

@@ -1,5 +1,7 @@
-import type { BuiltInProviderType, RedirectableProviderType } from '@auth/core/providers'
 import type { LiteralUnion, SignInAuthorizationParams, SignInOptions, SignOutParams } from 'next-auth/react'
+
+type BuiltInProviderType = string
+type RedirectableProviderType = string
 
 interface AstroSignInOptions extends SignInOptions {
   /** The base path for authentication (default: /api/auth) */
@@ -24,7 +26,7 @@ export async function signIn<P extends RedirectableProviderType | undefined = un
   >,
   options?: AstroSignInOptions,
   authorizationParams?: SignInAuthorizationParams,
-) {
+): Promise<Response | undefined> {
   const { callbackUrl = window.location.href, redirect = true } = options ?? {}
   const { prefix = '/api/auth', ...opts } = options ?? {}
 
@@ -76,7 +78,7 @@ export async function signIn<P extends RedirectableProviderType | undefined = un
  *
  * [Documentation](https://authjs.dev/reference/utilities/#signout)
  */
-export async function signOut(options?: AstroSignOutParams) {
+export async function signOut(options?: AstroSignOutParams): Promise<void> {
   const { callbackUrl = window.location.href, prefix = '/api/auth' } = options ?? {}
   // TODO: Custom base path
   const csrfTokenResponse = await fetch(`${prefix}/csrf`)
@@ -99,3 +101,5 @@ export async function signOut(options?: AstroSignOutParams) {
   // If url contains a hash, the browser does not reload the page. We reload manually
   if (url.includes('#')) window.location.reload()
 }
+
+export type { SignInAuthorizationParams, SignInOptions, SignOutParams }

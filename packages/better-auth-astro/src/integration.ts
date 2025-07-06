@@ -1,7 +1,7 @@
 import { addVitePlugin, defineIntegration } from 'astro-integration-kit'
 import { z } from 'astro/zod'
 import { dirname, join } from 'node:path'
-import { virtualConfigModule } from './config.js'
+import { virtualConfigModule } from './vite.js'
 
 export default defineIntegration({
   name: 'better-auth-astro',

@@ -9,28 +9,28 @@
     ".": {
       "import": {
         "@systemfsoftware/source": "./src/index.ts",
-        "types": "./dist/index.d.ts",
+        "types": "./dist/rollup/better-auth-astro.d.ts",
         "default": "./dist/index.js"
       }
     },
     "./client": {
       "import": {
         "@systemfsoftware/source": "./src/client.ts",
-        "types": "./dist/client.d.ts",
+        "types": "./dist/rollup/better-auth-astro-client.d.ts",
         "default": "./dist/client.js"
       }
     },
     "./server": {
       "import": {
         "@systemfsoftware/source": "./src/server.ts",
-        "types": "./dist/server.d.ts",
+        "types": "./dist/rollup/better-auth-astro-server.d.ts",
         "default": "./dist/server.js"
       }
     },
     "./config": {
       "import": {
         "@systemfsoftware/source": "./src/config.ts",
-        "types": "./dist/config.d.ts",
+        "types": "./dist/rollup/better-auth-astro-config.d.ts",
         "default": "./dist/config.js"
       }
     },
@@ -55,6 +55,11 @@
     "@auth/core": "^0.37.3",
     "astro": "^5"
   },
+  "peerDependenciesMeta": {
+    "@auth/core": {
+      "optional": false
+    }
+  },
   "devDependencies": {
     "@auth/core": "^0.37.3",
     "@total-typescript/tsconfig": "^1.0.4",
@@ -64,6 +69,7 @@
     "astro-integration-kit": "^0.18.0",
     "next-auth": "^4.24.10",
     "tsup": "^8.5.0",
+    "type-fest": "^4.41.0",
     "typescript": "^5.6.2"
   },
   "dependencies": {

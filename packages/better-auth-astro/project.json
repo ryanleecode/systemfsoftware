@@ -21,21 +21,40 @@
   "targets": {
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": [],
+      "dependsOn": ["^build"],
       "cache": true,
+      "inputs": [
+        "production",
+        "^production",
+        "{projectRoot}/tsup.config.ts",
+        "{projectRoot}/api-extractor*.json",
+        "{projectRoot}/scripts/add-virtual-reference.ts",
+        "{projectRoot}/virtual.d.ts"
+      ],
       "outputs": [
         "{projectRoot}/dist",
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models",
         "!{projectRoot}/dist/node_modules"
       ],
       "options": {
-        "command": "tsup",
-        "cwd": "packages/better-auth-astro"
+        "commands": [
+          "tsup",
+          "api-extractor run --config api-extractor.json --local",
+          "api-extractor run --config api-extractor-client.json --local",
+          "api-extractor run --config api-extractor-server.json --local",
+          "api-extractor run --config api-extractor-config.json --local",
+          "bun scripts/add-virtual-reference.ts"
+        ],
+        "cwd": "packages/better-auth-astro",
+        "parallel": false
       },
       "metadata": {
-        "description": "Build the auth-astro package using tsup",
+        "description": "Build the auth-astro package using tsup and generate API extracts",
         "technologies": [
           "typescript",
-          "tsup"
+          "tsup",
+          "api-extractor"
         ]
       }
     },
@@ -85,6 +104,147 @@
       ],
       "options": {
         "command": "pnpm exec nx watch --projects better-auth-astro --includeDependentProjects -- pnpm exec nx build-deps better-auth-astro"
+      }
+    },
+    "api-extract": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor*.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "commands": [
+          "api-extractor run --config api-extractor.json --local",
+          "api-extractor run --config api-extractor-client.json --local",
+          "api-extractor run --config api-extractor-server.json --local",
+          "api-extractor run --config api-extractor-config.json --local"
+        ],
+        "cwd": "packages/better-auth-astro",
+        "parallel": false
+      },
+      "metadata": {
+        "description": "Generate API reports and models for all subpath exports",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:main": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/better-auth-astro.api.md",
+        "{projectRoot}/api-models/better-auth-astro.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor.json --local",
+        "cwd": "packages/better-auth-astro"
+      },
+      "metadata": {
+        "description": "Generate API report and model for main export",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:client": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor-client.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/better-auth-astro-client.api.md",
+        "{projectRoot}/api-models/better-auth-astro-client.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor-client.json --local",
+        "cwd": "packages/better-auth-astro"
+      },
+      "metadata": {
+        "description": "Generate API report and model for client export",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:server": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor-server.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/better-auth-astro-server.api.md",
+        "{projectRoot}/api-models/better-auth-astro-server.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor-server.json --local",
+        "cwd": "packages/better-auth-astro"
+      },
+      "metadata": {
+        "description": "Generate API report and model for server export",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:config": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor-config.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/better-auth-astro-config.api.md",
+        "{projectRoot}/api-models/better-auth-astro-config.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor-config.json --local",
+        "cwd": "packages/better-auth-astro"
+      },
+      "metadata": {
+        "description": "Generate API report and model for config export",
+        "technologies": [
+          "api-extractor"
+        ]
       }
     }
   }

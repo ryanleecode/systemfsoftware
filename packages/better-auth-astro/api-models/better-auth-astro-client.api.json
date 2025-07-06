@@ -1,0 +1,619 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.52.8",
+    "schemaVersion": 1011,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "better-auth-astro!",
+  "docComment": "",
+  "name": "better-auth-astro",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "better-auth-astro!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Function",
+          "canonicalReference": "better-auth-astro!signIn:function(1)",
+          "docComment": "/**\n * Client-side method to initiate a signin flow or send the user to the signin page listing all possible providers. Automatically adds the CSRF token to the request.\n *\n * [Documentation](https://authjs.dev/reference/utilities/#signin)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function signIn<P extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "RedirectableProviderType",
+              "canonicalReference": "better-auth-astro!~RedirectableProviderType:type"
+            },
+            {
+              "kind": "Content",
+              "text": " | undefined"
+            },
+            {
+              "kind": "Content",
+              "text": " = "
+            },
+            {
+              "kind": "Content",
+              "text": "undefined"
+            },
+            {
+              "kind": "Content",
+              "text": ">(providerId?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "LiteralUnion",
+              "canonicalReference": "better-auth-astro!LiteralUnion:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<P extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "RedirectableProviderType",
+              "canonicalReference": "better-auth-astro!~RedirectableProviderType:type"
+            },
+            {
+              "kind": "Content",
+              "text": " ? P | "
+            },
+            {
+              "kind": "Reference",
+              "text": "BuiltInProviderType",
+              "canonicalReference": "better-auth-astro!~BuiltInProviderType:type"
+            },
+            {
+              "kind": "Content",
+              "text": " : "
+            },
+            {
+              "kind": "Reference",
+              "text": "BuiltInProviderType",
+              "canonicalReference": "better-auth-astro!~BuiltInProviderType:type"
+            },
+            {
+              "kind": "Content",
+              "text": ">"
+            },
+            {
+              "kind": "Content",
+              "text": ", options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AstroSignInOptions",
+              "canonicalReference": "better-auth-astro!~AstroSignInOptions:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ", authorizationParams?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "SignInAuthorizationParams",
+              "canonicalReference": "better-auth-astro!SignInAuthorizationParams:type"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<"
+            },
+            {
+              "kind": "Reference",
+              "text": "Response",
+              "canonicalReference": "!Response:interface"
+            },
+            {
+              "kind": "Content",
+              "text": " | undefined>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/client.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 19,
+            "endIndex": 23
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "providerId",
+              "parameterTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 14
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 15,
+                "endIndex": 16
+              },
+              "isOptional": true
+            },
+            {
+              "parameterName": "authorizationParams",
+              "parameterTypeTokenRange": {
+                "startIndex": 17,
+                "endIndex": 18
+              },
+              "isOptional": true
+            }
+          ],
+          "typeParameters": [
+            {
+              "typeParameterName": "P",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 3
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 4,
+                "endIndex": 5
+              }
+            }
+          ],
+          "name": "signIn"
+        },
+        {
+          "kind": "TypeAlias",
+          "canonicalReference": "better-auth-astro!SignInAuthorizationParams:type",
+          "docComment": "/**\n * Match `inputType` of `new URLSearchParams(inputType)`\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export declare type SignInAuthorizationParams = "
+            },
+            {
+              "kind": "Content",
+              "text": "string | string[][] | "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, string> | "
+            },
+            {
+              "kind": "Reference",
+              "text": "URLSearchParams",
+              "canonicalReference": "!URLSearchParams:interface"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "../../node_modules/.pnpm/next-auth@4.24.11_@auth+core@0.37.4_next@15.3.5_@babel+core@7.27.7_react-dom@19.1.0_rea_bed002c381cd6fa6eaac49712b7a2bc1/node_modules/next-auth/src/react/types.ts",
+          "releaseTag": "Public",
+          "name": "SignInAuthorizationParams",
+          "typeTokenRange": {
+            "startIndex": 1,
+            "endIndex": 5
+          }
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "better-auth-astro!SignInOptions:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface SignInOptions extends "
+            },
+            {
+              "kind": "Reference",
+              "text": "Record",
+              "canonicalReference": "!Record:type"
+            },
+            {
+              "kind": "Content",
+              "text": "<string, unknown>"
+            },
+            {
+              "kind": "Content",
+              "text": " "
+            }
+          ],
+          "fileUrlPath": "../../node_modules/.pnpm/next-auth@4.24.11_@auth+core@0.37.4_next@15.3.5_@babel+core@7.27.7_react-dom@19.1.0_rea_bed002c381cd6fa6eaac49712b7a2bc1/node_modules/next-auth/src/react/types.ts",
+          "releaseTag": "Public",
+          "name": "SignInOptions",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "better-auth-astro!SignInOptions#callbackUrl:member",
+              "docComment": "/**\n * Specify to which URL the user will be redirected after signing in. Defaults to the page URL the sign-in is initiated from.\n *\n * [Documentation](https://next-auth.js.org/getting-started/client#specifying-a-callbackurl)\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "callbackUrl?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "callbackUrl",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "better-auth-astro!SignInOptions#redirect:member",
+              "docComment": "/**\n * [Documentation](https://next-auth.js.org/getting-started/client#using-the-redirect-false-option)\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "redirect?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "boolean"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "redirect",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": [
+            {
+              "startIndex": 1,
+              "endIndex": 3
+            }
+          ]
+        },
+        {
+          "kind": "Function",
+          "canonicalReference": "better-auth-astro!signOut:function(1)",
+          "docComment": "/**\n * Signs the user out, by removing the session cookie. Automatically adds the CSRF token to the request.\n *\n * [Documentation](https://authjs.dev/reference/utilities/#signout)\n */\n",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "declare function signOut(options?: "
+            },
+            {
+              "kind": "Reference",
+              "text": "AstroSignOutParams",
+              "canonicalReference": "better-auth-astro!~AstroSignOutParams:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "): "
+            },
+            {
+              "kind": "Reference",
+              "text": "Promise",
+              "canonicalReference": "!Promise:interface"
+            },
+            {
+              "kind": "Content",
+              "text": "<void>"
+            },
+            {
+              "kind": "Content",
+              "text": ";"
+            }
+          ],
+          "fileUrlPath": "dist/client.d.ts",
+          "returnTypeTokenRange": {
+            "startIndex": 3,
+            "endIndex": 5
+          },
+          "releaseTag": "Public",
+          "overloadIndex": 1,
+          "parameters": [
+            {
+              "parameterName": "options",
+              "parameterTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "isOptional": true
+            }
+          ],
+          "name": "signOut"
+        },
+        {
+          "kind": "Interface",
+          "canonicalReference": "better-auth-astro!SignOutParams:interface",
+          "docComment": "",
+          "excerptTokens": [
+            {
+              "kind": "Content",
+              "text": "export interface SignOutParams<R extends "
+            },
+            {
+              "kind": "Content",
+              "text": "boolean"
+            },
+            {
+              "kind": "Content",
+              "text": " = "
+            },
+            {
+              "kind": "Content",
+              "text": "true"
+            },
+            {
+              "kind": "Content",
+              "text": "> "
+            }
+          ],
+          "fileUrlPath": "../../node_modules/.pnpm/next-auth@4.24.11_@auth+core@0.37.4_next@15.3.5_@babel+core@7.27.7_react-dom@19.1.0_rea_bed002c381cd6fa6eaac49712b7a2bc1/node_modules/next-auth/src/react/types.ts",
+          "releaseTag": "Public",
+          "typeParameters": [
+            {
+              "typeParameterName": "R",
+              "constraintTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              },
+              "defaultTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 4
+              }
+            }
+          ],
+          "name": "SignOutParams",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "better-auth-astro!SignOutParams#callbackUrl:member",
+              "docComment": "/**\n * [Documentation](https://next-auth.js.org/getting-started/client#specifying-a-callbackurl-1)\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "callbackUrl?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "callbackUrl",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            },
+            {
+              "kind": "PropertySignature",
+              "canonicalReference": "better-auth-astro!SignOutParams#redirect:member",
+              "docComment": "/**\n * [Documentation](https://next-auth.js.org/getting-started/client#using-the-redirect-false-option-1\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "redirect?: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "R"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "isReadonly": false,
+              "isOptional": true,
+              "releaseTag": "Public",
+              "name": "redirect",
+              "propertyTypeTokenRange": {
+                "startIndex": 1,
+                "endIndex": 2
+              }
+            }
+          ],
+          "extendsTokenRanges": []
+        }
+      ]
+    }
+  ]
+}

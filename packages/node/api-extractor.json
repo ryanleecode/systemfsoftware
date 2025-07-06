@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
+  "extends": "./api-extractor-base.json",
+  "mainEntryPointFilePath": "./dist/esm/mod.d.ts",
+  "apiReport": {
+    "enabled": true,
+    "reportFolder": "./api-reports/",
+    "reportFileName": "node.api.md",
+    "reportTempFolder": "./temp/"
+  },
+  "docModel": {
+    "enabled": true,
+    "apiJsonFilePath": "./api-models/node.api.json"
+  },
+  "dtsRollup": {
+    "enabled": true,
+    "untrimmedFilePath": "./dist/rollup/node.d.ts"
+  }
+}

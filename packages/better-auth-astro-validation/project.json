@@ -1,0 +1,16 @@
+{
+  "name": "better-auth-astro-validation",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/better-auth-astro-validation",
+  "targets": {
+    "test:types": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsd",
+        "cwd": "packages/better-auth-astro-validation"
+      }
+    }
+  },
+  "tags": ["type:validation", "scope:better-auth-astro"]
+}

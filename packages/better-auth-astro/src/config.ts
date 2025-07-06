@@ -1,24 +1,4 @@
-import type { AuthConfig } from '@auth/core/types'
-import type { PluginOption } from 'vite'
-
-export const virtualConfigModule = (configFile: string = './auth.config'): PluginOption => {
-  const virtualModuleId = 'auth:config'
-  const resolvedId = '\0' + virtualModuleId
-
-  return {
-    name: 'auth-astro-config',
-    resolveId: (id) => {
-      if (id === virtualModuleId) {
-        return resolvedId
-      }
-    },
-    load: (id) => {
-      if (id === resolvedId) {
-        return `import authConfig from "${configFile}"; export default authConfig`
-      }
-    },
-  }
-}
+import type { AuthConfig as LocalAuthConfig } from '@auth/core/types'
 
 export interface AstroAuthConfig {
   /**
@@ -37,9 +17,12 @@ export interface AstroAuthConfig {
   configFile?: string
 }
 
-export interface FullAuthConfig extends AstroAuthConfig, Omit<AuthConfig, 'raw'> {}
+export interface FullAuthConfig extends AstroAuthConfig, Omit<LocalAuthConfig, 'raw'> {}
+
 export const defineConfig = (config: FullAuthConfig) => {
   config.prefix ??= '/api/auth'
   config.basePath = config.prefix
   return config
 }
+
+export type { LocalAuthConfig }

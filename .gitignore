@@ -1,12 +1,68 @@
 # See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
-# compiled output
+# ====================
+# Dependencies & Package Managers
+# ====================
+node_modules
+.pnpm-store
+
+# ====================
+# Build Output & Artifacts  
+# ====================
+# Compiled output
 dist
 tmp
 out-tsc
+build
 
-# dependencies
-node_modules
+# TypeScript
+*.tsbuildinfo
+.tsbuildinfo
+**/*.tsbuildinfo
+
+# tshy build artifacts
+.tshy
+.tshy-build
+
+# API Extractor artifacts
+**/temp/
+**/api-reports/*.tmp
+**/api-models/*.tmp
+
+# ====================
+# Development Tools
+# ====================
+# Testing
+/coverage
+coverage
+**/.nyc_output
+**/junit.xml
+**/test-results.xml
+
+# Vite/Vitest temporary files
+vite.config.*.timestamp*
+vitest.config.*.timestamp*
+
+# Temporary files
+**/*.tmp
+**/*.temp
+**/.cache
+
+# Debug logs
+npm-debug.log
+yarn-error.log
+testem.log
+
+# ====================
+# IDEs & Editors
+# ====================
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
 
 # IDEs and editors
 /.idea
@@ -17,41 +73,38 @@ node_modules
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/mcp.json
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage
-/libpeerconnection.log
-npm-debug.log
-yarn-error.log
-testem.log
-/typings
-
+# ====================
 # System Files
+# ====================
 .DS_Store
 Thumbs.db
 
+# ====================
+# Nx Specific
+# ====================
+# Nx cache and workspace data
 .nx/cache
 .nx/workspace-data
+
+# Nx rules and instructions (auto-generated)
 .cursor/rules/nx-rules.mdc
 .github/instructions/nx.instructions.md
 
-.pnpm-store
+# ====================
+# Project Specific
+# ====================
+# Package build artifacts
+**/better-auth-astro-*.tgz
+packages/*/better-auth-astro-*.tgz
 
-.tshy
-.tshy-build
+# Backup files
+**/*.backup
+**/*.bak
 
-vite.config.*.timestamp*
-vitest.config.*.timestamp*
-
-coverage 
-
-*.tsbuildinfo
+# ====================
+# Legacy/Misc
+# ====================
+/.sass-cache
+/connect.lock
+/libpeerconnection.log
+/typings

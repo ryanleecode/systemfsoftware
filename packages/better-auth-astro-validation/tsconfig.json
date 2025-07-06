@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@total-typescript/tsconfig/tsc/dom/app",
+  "compilerOptions": {
+    "types": ["tsd"]
+  },
+  "include": [
+    "test-d/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

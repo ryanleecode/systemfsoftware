@@ -23,10 +23,20 @@
  * ```
  */
 import { Auth } from '@auth/core'
-import type { AuthAction, Session } from '@auth/core/types'
+import type { Session } from '@auth/core/types'
 import type { APIContext } from 'astro'
 import authConfig, { type FullAuthConfig } from 'auth:config'
 import { parseString } from 'set-cookie-parser'
+
+type AuthAction =
+  | 'providers'
+  | 'session'
+  | 'csrf'
+  | 'signin'
+  | 'signout'
+  | 'callback'
+  | 'verify-request'
+  | 'error'
 
 const actions: AuthAction[] = [
   'providers',
@@ -78,7 +88,7 @@ function AstroAuthHandler(prefix: string, options: FullAuthConfig = authConfig) 
  *   debug: false,
  * })
  * ```
- * @param config The configuration for authentication providers and other options.
+ * @param config - The configuration for authentication providers and other options.
  * @returns An object with `GET` and `POST` methods that can be exported in an Astro endpoint.
  */
 export function AstroAuth(options: FullAuthConfig = authConfig) {
@@ -103,10 +113,13 @@ export function AstroAuth(options: FullAuthConfig = authConfig) {
 
 /**
  * Fetches the current session.
- * @param req The request object.
+ * @param req - The request object.
  * @returns The current session, or `null` if there is no session.
  */
-export async function getSession<T extends Record<string, any> = {}>(req: Request, options: FullAuthConfig = authConfig): Promise<(Session & T) | null> {
+export async function getSession<T extends Record<string, any> = {}>(
+  req: Request,
+  options: FullAuthConfig = authConfig,
+): Promise<(Session & T) | null> {
   // @ts-ignore
   options.secret ??= import.meta.env.AUTH_SECRET
   options.trustHost ??= true
@@ -121,3 +134,5 @@ export async function getSession<T extends Record<string, any> = {}>(req: Reques
   if (status === 200) return data
   throw new Error(data.message)
 }
+
+export type { Session, FullAuthConfig }

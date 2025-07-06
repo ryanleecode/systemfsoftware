@@ -9,12 +9,19 @@
       "cache": true,
       "outputs": [
         "{projectRoot}/dist",
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models",
         "!{projectRoot}/dist/node_modules",
         "{projectRoot}/.tshy"
       ],
       "options": {
-        "command": "tshy",
-        "cwd": "{projectRoot}"
+        "commands": [
+          "tshy",
+          "api-extractor run --config api-extractor.json --local",
+          "api-extractor run --config api-extractor-fetch.json --local"
+        ],
+        "cwd": "{projectRoot}",
+        "parallel": false
       }
     },
     "clean": {
@@ -28,6 +35,91 @@
       "executor": "@nx/vite:test",
       "options": {
         "run": true
+      }
+    },
+    "api-extract": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor*.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "commands": [
+          "api-extractor run --config api-extractor.json --local",
+          "api-extractor run --config api-extractor-fetch.json --local"
+        ],
+        "cwd": "packages/node",
+        "parallel": false
+      },
+      "metadata": {
+        "description": "Generate API reports and models for all subpath exports",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:main": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/node.api.md",
+        "{projectRoot}/api-models/node.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor.json --local",
+        "cwd": "packages/node"
+      },
+      "metadata": {
+        "description": "Generate API report and model for main export",
+        "technologies": [
+          "api-extractor"
+        ]
+      }
+    },
+    "api-extract:fetch": {
+      "executor": "nx:run-commands",
+      "dependsOn": [
+        "build"
+      ],
+      "cache": true,
+      "inputs": [
+        "default",
+        "^default",
+        "{projectRoot}/api-extractor-fetch.json"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports/node-fetch.api.md",
+        "{projectRoot}/api-models/node-fetch.api.json",
+        "{projectRoot}/temp"
+      ],
+      "options": {
+        "command": "api-extractor run --config api-extractor-fetch.json --local",
+        "cwd": "packages/node"
+      },
+      "metadata": {
+        "description": "Generate API report and model for Fetch export",
+        "technologies": [
+          "api-extractor"
+        ]
       }
     }
   },

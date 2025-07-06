@@ -1,0 +1,29 @@
+{
+  "name": "better-auth-astro-validation",
+  "description": "Type-level validation tests for better-auth-astro subpath exports",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "test:types": "tsd"
+  },
+  "dependencies": {
+    "better-auth-astro": "workspace:*"
+  },
+  "devDependencies": {
+    "tsd": "^0.32.0",
+    "typescript": "^5.6.2"
+  },
+  "tsd": {
+    "compilerOptions": {
+      "strict": true,
+      "target": "es2022",
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "skipLibCheck": true
+    }
+  }
+}

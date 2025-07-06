@@ -1,0 +1,719 @@
+{
+  "graph": {
+    "nodes": {
+      "better-auth-astro-validation": {
+        "name": "better-auth-astro-validation",
+        "type": "lib",
+        "data": {
+          "root": "packages/better-auth-astro-validation",
+          "name": "better-auth-astro-validation",
+          "tags": [
+            "npm:private",
+            "type:validation",
+            "scope:better-auth-astro"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "description": "Type-level validation tests for better-auth-astro subpath exports",
+            "js": {
+              "packageName": "better-auth-astro-validation",
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "test:types": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "tsd",
+                "cwd": "packages/better-auth-astro-validation"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "$schema": "../../node_modules/nx/schemas/project-schema.json",
+          "projectType": "library",
+          "sourceRoot": "packages/better-auth-astro-validation",
+          "implicitDependencies": []
+        }
+      },
+      "better-auth-astro": {
+        "name": "better-auth-astro",
+        "type": "lib",
+        "data": {
+          "root": "packages/better-auth-astro",
+          "name": "better-auth-astro",
+          "tags": [
+            "npm:public",
+            "npm:astro",
+            "npm:auth",
+            "npm:authentication",
+            "npm:integration",
+            "npm:@auth",
+            "npm:@auth/core",
+            "npm:authjs",
+            "npm:jwt",
+            "npm:oauth",
+            "npm:astro-auth",
+            "npm:astro-integration",
+            "npm:astro-component",
+            "npm:withastro"
+          ],
+          "metadata": {
+            "targetGroups": {},
+            "description": "The easiest way to add authentication to your Astro project!",
+            "js": {
+              "packageName": "better-auth-astro",
+              "packageExports": {
+                "./package.json": "./package.json",
+                ".": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/index.ts",
+                    "types": "./dist/rollup/better-auth-astro.d.ts",
+                    "default": "./dist/index.js"
+                  }
+                },
+                "./client": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/client.ts",
+                    "types": "./dist/rollup/better-auth-astro-client.d.ts",
+                    "default": "./dist/client.js"
+                  }
+                },
+                "./server": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/server.ts",
+                    "types": "./dist/rollup/better-auth-astro-server.d.ts",
+                    "default": "./dist/server.js"
+                  }
+                },
+                "./config": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/config.ts",
+                    "types": "./dist/rollup/better-auth-astro-config.d.ts",
+                    "default": "./dist/config.js"
+                  }
+                },
+                "./components": {
+                  "import": {
+                    "default": "./src/components.ts"
+                  }
+                }
+              },
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-commands",
+              "dependsOn": [],
+              "cache": true,
+              "outputs": [
+                "{projectRoot}/dist",
+                "{projectRoot}/api-reports",
+                "{projectRoot}/api-models",
+                "!{projectRoot}/dist/node_modules"
+              ],
+              "options": {
+                "commands": [
+                  "tsup",
+                  "api-extractor run --config api-extractor.json --local",
+                  "api-extractor run --config api-extractor-client.json --local",
+                  "api-extractor run --config api-extractor-server.json --local",
+                  "api-extractor run --config api-extractor-config.json --local",
+                  "bun scripts/add-virtual-reference.ts"
+                ],
+                "cwd": "packages/better-auth-astro",
+                "parallel": false
+              },
+              "metadata": {
+                "description": "Build the auth-astro package using tsup and generate API extracts",
+                "technologies": [
+                  "typescript",
+                  "tsup",
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "test": {
+              "executor": "@nx/vite:test",
+              "options": {
+                "run": true
+              },
+              "outputs": [
+                "{projectRoot}/coverage"
+              ],
+              "configurations": {},
+              "parallelism": true
+            },
+            "typecheck": {
+              "executor": "nx:run-commands",
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default"
+              ],
+              "options": {
+                "cwd": "packages/better-auth-astro",
+                "command": "tsc --noEmit -p tsconfig.json"
+              },
+              "metadata": {
+                "description": "Runs type-checking for the project.",
+                "technologies": [
+                  "typescript"
+                ]
+              },
+              "outputs": [
+                "{projectRoot}/tsconfig.tsbuildinfo",
+                "{projectRoot}/tsconfig.build.tsbuildinfo"
+              ],
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^typecheck"
+              ]
+            },
+            "build-deps": {
+              "executor": "nx:noop",
+              "dependsOn": [
+                "^build"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "watch-deps": {
+              "executor": "nx:run-commands",
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "options": {
+                "command": "pnpm exec nx watch --projects better-auth-astro --includeDependentProjects -- pnpm exec nx build-deps better-auth-astro"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor*.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports",
+                "{projectRoot}/api-models",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "commands": [
+                  "api-extractor run --config api-extractor.json --local",
+                  "api-extractor run --config api-extractor-client.json --local",
+                  "api-extractor run --config api-extractor-server.json --local",
+                  "api-extractor run --config api-extractor-config.json --local"
+                ],
+                "cwd": "packages/better-auth-astro",
+                "parallel": false
+              },
+              "metadata": {
+                "description": "Generate API reports and models for all subpath exports",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:main": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/better-auth-astro.api.md",
+                "{projectRoot}/api-models/better-auth-astro.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor.json --local",
+                "cwd": "packages/better-auth-astro"
+              },
+              "metadata": {
+                "description": "Generate API report and model for main export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:client": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor-client.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/better-auth-astro-client.api.md",
+                "{projectRoot}/api-models/better-auth-astro-client.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor-client.json --local",
+                "cwd": "packages/better-auth-astro"
+              },
+              "metadata": {
+                "description": "Generate API report and model for client export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:server": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor-server.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/better-auth-astro-server.api.md",
+                "{projectRoot}/api-models/better-auth-astro-server.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor-server.json --local",
+                "cwd": "packages/better-auth-astro"
+              },
+              "metadata": {
+                "description": "Generate API report and model for server export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:config": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor-config.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/better-auth-astro-config.api.md",
+                "{projectRoot}/api-models/better-auth-astro-config.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor-config.json --local",
+                "cwd": "packages/better-auth-astro"
+              },
+              "metadata": {
+                "description": "Generate API report and model for config export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "sourceRoot": "packages/better-auth-astro/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "node": {
+        "name": "node",
+        "type": "lib",
+        "data": {
+          "root": "packages/node",
+          "metadata": {
+            "targetGroups": {
+              "NPM Scripts": [
+                "prepublishOnly"
+              ]
+            },
+            "js": {
+              "packageName": "@systemfsoftware/node",
+              "packageExports": {
+                "./package.json": "./package.json",
+                ".": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/mod.ts",
+                    "types": "./dist/esm/mod.d.ts",
+                    "default": "./dist/esm/mod.js"
+                  }
+                },
+                "./Fetch": {
+                  "import": {
+                    "@systemfsoftware/source": "./src/Fetch.ts",
+                    "types": "./dist/esm/Fetch.d.ts",
+                    "default": "./dist/esm/Fetch.js"
+                  }
+                }
+              },
+              "isInPackageManagerWorkspaces": true
+            }
+          },
+          "targets": {
+            "test": {
+              "executor": "@nx/vite:test",
+              "options": {
+                "run": true
+              },
+              "configurations": {},
+              "parallelism": true,
+              "outputs": [
+                "{projectRoot}/coverage"
+              ]
+            },
+            "typecheck": {
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default"
+              ],
+              "options": {
+                "cwd": "packages/node",
+                "command": "tsc --noEmit -p tsconfig.json"
+              },
+              "metadata": {
+                "description": "Runs type-checking for the project.",
+                "technologies": [
+                  "typescript"
+                ],
+                "help": {
+                  "command": "pnpm exec tsc -p tsconfig.json --help",
+                  "example": {
+                    "options": {
+                      "noEmit": true
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true,
+              "dependsOn": [
+                "^typecheck"
+              ],
+              "outputs": [
+                "{projectRoot}/tsconfig.tsbuildinfo",
+                "{projectRoot}/tsconfig.build.tsbuildinfo"
+              ]
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects node --includeDependentProjects -- pnpm exec nx build-deps node"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "prepublishOnly": {
+              "executor": "nx:run-script",
+              "options": {
+                "script": "prepublishOnly"
+              },
+              "metadata": {
+                "scriptContent": "nx build node",
+                "runCommand": "pnpm run prepublishOnly"
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "nx-release-publish": {
+              "executor": "@nx/js:release-publish",
+              "dependsOn": [
+                "^nx-release-publish"
+              ],
+              "options": {},
+              "configurations": {},
+              "parallelism": true
+            },
+            "build": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "clean"
+              ],
+              "cache": true,
+              "outputs": [
+                "{projectRoot}/dist",
+                "{projectRoot}/api-reports",
+                "{projectRoot}/api-models",
+                "!{projectRoot}/dist/node_modules",
+                "{projectRoot}/.tshy"
+              ],
+              "options": {
+                "commands": [
+                  "tshy",
+                  "api-extractor run --config api-extractor.json --local",
+                  "api-extractor run --config api-extractor-fetch.json --local"
+                ],
+                "cwd": "packages/node",
+                "parallel": false
+              },
+              "configurations": {},
+              "parallelism": true,
+              "inputs": [
+                "production",
+                "^production"
+              ]
+            },
+            "clean": {
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "rimraf dist",
+                "cwd": "packages/node"
+              },
+              "configurations": {},
+              "parallelism": true,
+              "cache": false
+            },
+            "api-extract": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor*.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports",
+                "{projectRoot}/api-models",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "commands": [
+                  "api-extractor run --config api-extractor.json --local",
+                  "api-extractor run --config api-extractor-fetch.json --local"
+                ],
+                "cwd": "packages/node",
+                "parallel": false
+              },
+              "metadata": {
+                "description": "Generate API reports and models for all subpath exports",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:main": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/node.api.md",
+                "{projectRoot}/api-models/node.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor.json --local",
+                "cwd": "packages/node"
+              },
+              "metadata": {
+                "description": "Generate API report and model for main export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            },
+            "api-extract:fetch": {
+              "executor": "nx:run-commands",
+              "dependsOn": [
+                "build"
+              ],
+              "cache": true,
+              "inputs": [
+                "default",
+                "^default",
+                "{projectRoot}/api-extractor-fetch.json"
+              ],
+              "outputs": [
+                "{projectRoot}/api-reports/node-fetch.api.md",
+                "{projectRoot}/api-models/node-fetch.api.json",
+                "{projectRoot}/temp"
+              ],
+              "options": {
+                "command": "api-extractor run --config api-extractor-fetch.json --local",
+                "cwd": "packages/node"
+              },
+              "metadata": {
+                "description": "Generate API report and model for Fetch export",
+                "technologies": [
+                  "api-extractor"
+                ]
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "node",
+          "tags": [
+            "npm:public"
+          ],
+          "sourceRoot": "packages/node/src",
+          "projectType": "library",
+          "implicitDependencies": []
+        }
+      },
+      "@systemfsoftware/source": {
+        "name": "@systemfsoftware/source",
+        "type": "lib",
+        "data": {
+          "root": ".",
+          "metadata": {},
+          "targets": {
+            "test": {
+              "options": {
+                "cwd": ".",
+                "command": "vitest"
+              },
+              "cache": true,
+              "inputs": [
+                "default",
+                "^production",
+                {
+                  "externalDependencies": [
+                    "vitest"
+                  ]
+                },
+                {
+                  "env": "CI"
+                }
+              ],
+              "outputs": [
+                "{projectRoot}/coverage"
+              ],
+              "metadata": {
+                "technologies": [
+                  "vite"
+                ],
+                "description": "Run Vite tests",
+                "help": {
+                  "command": "pnpm exec vitest --help",
+                  "example": {
+                    "options": {
+                      "bail": 1,
+                      "coverage": true
+                    }
+                  }
+                }
+              },
+              "executor": "nx:run-commands",
+              "configurations": {},
+              "parallelism": true
+            },
+            "build-deps": {
+              "dependsOn": [
+                "^build"
+              ],
+              "configurations": {},
+              "options": {},
+              "parallelism": true,
+              "executor": "nx:noop"
+            },
+            "watch-deps": {
+              "continuous": true,
+              "dependsOn": [
+                "build-deps"
+              ],
+              "executor": "nx:run-commands",
+              "options": {
+                "command": "pnpm exec nx watch --projects @systemfsoftware/source --includeDependentProjects -- pnpm exec nx build-deps @systemfsoftware/source"
+              },
+              "configurations": {},
+              "parallelism": true
+            }
+          },
+          "name": "@systemfsoftware/source",
+          "implicitDependencies": [],
+          "tags": []
+        }
+      }
+    },
+    "dependencies": {
+      "better-auth-astro-validation": [
+        {
+          "source": "better-auth-astro-validation",
+          "target": "better-auth-astro",
+          "type": "static"
+        }
+      ],
+      "better-auth-astro": [],
+      "node": [],
+      "@systemfsoftware/source": []
+    }
+  }
+}

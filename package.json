@@ -20,6 +20,8 @@
   "private": true,
   "devDependencies": {
     "@effect/language-service": "^0.23.4",
+    "@microsoft/api-extractor": "^7.52.8",
+    "@microsoft/api-extractor-model": "^7.30.6",
     "@nx/js": "21.2.1",
     "@nx/vite": "21.2.1",
     "@nx/web": "21.2.1",

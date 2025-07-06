@@ -5,24 +5,19 @@ const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'))
 const dependencies = [
   ...Object.keys(packageJson.dependencies || {}),
   ...Object.keys(packageJson.peerDependencies || {}),
+  ...Object.keys(packageJson.devDependencies || {}),
 ]
-const devDependencies = [...Object.keys(packageJson.devDependencies || {})]
 
 export default defineConfig({
-  entry: ['src/**/*.ts'],
+  entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts'],
   format: ['esm'],
   target: 'es2022',
-  bundle: false,
-  dts: {
-    entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts'],
-    banner: '/// <reference path="../virtual.d.ts" />\n',
-  },
+  bundle: true,
+  dts: true,
   sourcemap: false,
   clean: true,
-  splitting: true,
   minify: false,
-  external: [...dependencies, './virtual.d.ts'],
-  noExternal: devDependencies,
+  external: [...dependencies, './virtual.d.ts', 'auth:config', 'lightningcss', '*.astro'],
   treeshake: 'smallest',
   tsconfig: 'tsconfig.build.json',
 })

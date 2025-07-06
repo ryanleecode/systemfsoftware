@@ -29,7 +29,23 @@
         "{projectRoot}/.tshy",
         "{projectRoot}/.tshy-build",
         "{projectRoot}/.astro",
-        "{projectRoot}/tsconfig.tsbuildinfo"
+        "{projectRoot}/tsconfig.tsbuildinfo",
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models"
+      ]
+    },
+    "api-extract": {
+      "dependsOn": [
+        "build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ],
+      "outputs": [
+        "{projectRoot}/api-reports",
+        "{projectRoot}/api-models",
+        "{projectRoot}/dist/rollup"
       ]
     },
     "typecheck": {

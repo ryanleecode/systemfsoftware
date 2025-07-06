@@ -1,0 +1,643 @@
+{
+  "metadata": {
+    "toolPackage": "@microsoft/api-extractor",
+    "toolVersion": "7.52.8",
+    "schemaVersion": 1011,
+    "oldestForwardsCompatibleVersion": 1001,
+    "tsdocConfig": {
+      "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+      "noStandardTags": true,
+      "tagDefinitions": [
+        {
+          "tagName": "@alpha",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@beta",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@defaultValue",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@decorator",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@deprecated",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@eventProperty",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@example",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@experimental",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@inheritDoc",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@internal",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@label",
+          "syntaxKind": "inline"
+        },
+        {
+          "tagName": "@link",
+          "syntaxKind": "inline",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@override",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@packageDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@param",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@privateRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@public",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@readonly",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@remarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@returns",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@sealed",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@see",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@throws",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@typeParam",
+          "syntaxKind": "block",
+          "allowMultiple": true
+        },
+        {
+          "tagName": "@virtual",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@betaDocumentation",
+          "syntaxKind": "modifier"
+        },
+        {
+          "tagName": "@internalRemarks",
+          "syntaxKind": "block"
+        },
+        {
+          "tagName": "@preapproved",
+          "syntaxKind": "modifier"
+        }
+      ],
+      "supportForTags": {
+        "@alpha": true,
+        "@beta": true,
+        "@defaultValue": true,
+        "@decorator": true,
+        "@deprecated": true,
+        "@eventProperty": true,
+        "@example": true,
+        "@experimental": true,
+        "@inheritDoc": true,
+        "@internal": true,
+        "@label": true,
+        "@link": true,
+        "@override": true,
+        "@packageDocumentation": true,
+        "@param": true,
+        "@privateRemarks": true,
+        "@public": true,
+        "@readonly": true,
+        "@remarks": true,
+        "@returns": true,
+        "@sealed": true,
+        "@see": true,
+        "@throws": true,
+        "@typeParam": true,
+        "@virtual": true,
+        "@betaDocumentation": true,
+        "@internalRemarks": true,
+        "@preapproved": true
+      },
+      "reportUnsupportedHtmlElements": false
+    }
+  },
+  "kind": "Package",
+  "canonicalReference": "@systemfsoftware/node!",
+  "docComment": "",
+  "name": "@systemfsoftware/node",
+  "preserveMemberOrder": false,
+  "members": [
+    {
+      "kind": "EntryPoint",
+      "canonicalReference": "@systemfsoftware/node!",
+      "name": "",
+      "preserveMemberOrder": false,
+      "members": [
+        {
+          "kind": "Namespace",
+          "canonicalReference": "@systemfsoftware/node!Fetch:namespace",
+          "docComment": "",
+          "excerptTokens": [],
+          "fileUrlPath": "dist/esm/mod.d.ts",
+          "releaseTag": "None",
+          "name": "Fetch",
+          "preserveMemberOrder": false,
+          "members": [
+            {
+              "kind": "Function",
+              "canonicalReference": "@systemfsoftware/node!Fetch.createFetchWithProxy:function(1)",
+              "docComment": "/**\n * Creates a fetch function with proxy support\n *\n * Automatically normalizes Request objects to avoid cross-realm issues with undici.\n *\n * @example\n * ```typescript\n * import { createFetchWithProxy } from '@systemfsoftware/node'\n * import { fetch as undiciFetch } from 'undici'\n *\n * const fetch = createFetchWithProxy()\n * const fetchWithUndici = createFetchWithProxy(undiciFetch)\n *\n * const response = await fetch('https://api.example.com', {\n *   proxy: 'http://proxy.example.com:8080'\n * })\n * ```\n *\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "export declare function createFetchWithProxy(baseFetch?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "CompatibleFetch",
+                  "canonicalReference": "@systemfsoftware/node!~CompatibleFetch:type"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(input: string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "URL",
+                  "canonicalReference": "!\"\\\"url\\\"\".__global.URL:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Request",
+                  "canonicalReference": "@types/node!__global.Request:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", init?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FetchWithProxyInit",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.FetchWithProxyInit:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Response",
+                  "canonicalReference": "@types/node!__global.Response:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "fileUrlPath": "dist/esm/Fetch.d.ts",
+              "returnTypeTokenRange": {
+                "startIndex": 3,
+                "endIndex": 14
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "baseFetch",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  },
+                  "isOptional": true
+                }
+              ],
+              "name": "createFetchWithProxy"
+            },
+            {
+              "kind": "Function",
+              "canonicalReference": "@systemfsoftware/node!Fetch.createProxiedFetch:function(1)",
+              "docComment": "/**\n * Creates a fetch function with predefined proxy configuration\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "export declare function createProxiedFetch(proxyConfig: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "URL",
+                  "canonicalReference": "!\"\\\"url\\\"\".__global.URL:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "ProxyConfig",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "): "
+                },
+                {
+                  "kind": "Content",
+                  "text": "(input: string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "URL",
+                  "canonicalReference": "!\"\\\"url\\\"\".__global.URL:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Request",
+                  "canonicalReference": "@types/node!__global.Request:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", init?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RequestInit",
+                  "canonicalReference": "@types/node!__global.RequestInit:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Response",
+                  "canonicalReference": "@types/node!__global.Response:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                },
+                {
+                  "kind": "Content",
+                  "text": ";"
+                }
+              ],
+              "fileUrlPath": "dist/esm/Fetch.d.ts",
+              "returnTypeTokenRange": {
+                "startIndex": 6,
+                "endIndex": 17
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "proxyConfig",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 5
+                  },
+                  "isOptional": false
+                }
+              ],
+              "name": "createProxiedFetch"
+            },
+            {
+              "kind": "Interface",
+              "canonicalReference": "@systemfsoftware/node!Fetch.FetchWithProxyInit:interface",
+              "docComment": "",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "export interface FetchWithProxyInit extends "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "RequestInit",
+                  "canonicalReference": "@types/node!__global.RequestInit:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " "
+                }
+              ],
+              "fileUrlPath": "dist/esm/Fetch.d.ts",
+              "releaseTag": "Public",
+              "name": "FetchWithProxyInit",
+              "preserveMemberOrder": false,
+              "members": [
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.FetchWithProxyInit#proxy:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "proxy?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string | "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "URL",
+                      "canonicalReference": "!\"\\\"url\\\"\".__global.URL:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": " | "
+                    },
+                    {
+                      "kind": "Reference",
+                      "text": "ProxyConfig",
+                      "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig:interface"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isReadonly": false,
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "proxy",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 5
+                  }
+                }
+              ],
+              "extendsTokenRanges": [
+                {
+                  "startIndex": 1,
+                  "endIndex": 2
+                }
+              ]
+            },
+            {
+              "kind": "Function",
+              "canonicalReference": "@systemfsoftware/node!Fetch.proxiedFetch:function(1)",
+              "docComment": "/**\n * Default fetch instance with proxy support\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "proxiedFetch: (input: "
+                },
+                {
+                  "kind": "Content",
+                  "text": "string | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "URL",
+                  "canonicalReference": "!\"\\\"url\\\"\".__global.URL:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": " | "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Request",
+                  "canonicalReference": "@types/node!__global.Request:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ", init?: "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "FetchWithProxyInit",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.FetchWithProxyInit:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ") => "
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Promise",
+                  "canonicalReference": "!Promise:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": "<"
+                },
+                {
+                  "kind": "Reference",
+                  "text": "Response",
+                  "canonicalReference": "@types/node!__global.Response:interface"
+                },
+                {
+                  "kind": "Content",
+                  "text": ">"
+                }
+              ],
+              "fileUrlPath": "dist/esm/Fetch.d.ts",
+              "returnTypeTokenRange": {
+                "startIndex": 8,
+                "endIndex": 12
+              },
+              "releaseTag": "Public",
+              "overloadIndex": 1,
+              "parameters": [
+                {
+                  "parameterName": "input",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 5
+                  },
+                  "isOptional": false
+                },
+                {
+                  "parameterName": "init",
+                  "parameterTypeTokenRange": {
+                    "startIndex": 6,
+                    "endIndex": 7
+                  },
+                  "isOptional": true
+                }
+              ],
+              "name": "proxiedFetch"
+            },
+            {
+              "kind": "Interface",
+              "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig:interface",
+              "docComment": "/**\n * Proxy configuration for fetch requests\n */\n",
+              "excerptTokens": [
+                {
+                  "kind": "Content",
+                  "text": "export interface ProxyConfig "
+                }
+              ],
+              "fileUrlPath": "dist/esm/Fetch.d.ts",
+              "releaseTag": "Public",
+              "name": "ProxyConfig",
+              "preserveMemberOrder": false,
+              "members": [
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig#password:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "password?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isReadonly": false,
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "password",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig#url:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "url: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isReadonly": false,
+                  "isOptional": false,
+                  "releaseTag": "Public",
+                  "name": "url",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                },
+                {
+                  "kind": "PropertySignature",
+                  "canonicalReference": "@systemfsoftware/node!Fetch.ProxyConfig#username:member",
+                  "docComment": "",
+                  "excerptTokens": [
+                    {
+                      "kind": "Content",
+                      "text": "username?: "
+                    },
+                    {
+                      "kind": "Content",
+                      "text": "string"
+                    },
+                    {
+                      "kind": "Content",
+                      "text": ";"
+                    }
+                  ],
+                  "isReadonly": false,
+                  "isOptional": true,
+                  "releaseTag": "Public",
+                  "name": "username",
+                  "propertyTypeTokenRange": {
+                    "startIndex": 1,
+                    "endIndex": 2
+                  }
+                }
+              ],
+              "extendsTokenRanges": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -15,6 +15,7 @@
   },
   "include": [
     "src",
+    "scripts",
     "virtual.d.ts",
     "tsup.config.ts"
   ]
