@@ -9,11 +9,13 @@ const dependencies = [
 ]
 
 export default defineConfig({
-  entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts'],
+  entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts', 'src/api/**'],
   format: ['esm'],
   target: 'es2022',
   bundle: true,
-  dts: true,
+  dts: {
+    entry: ['src/index.ts', 'src/client.ts', 'src/server.ts', 'src/config.ts'],
+  },
   sourcemap: false,
   clean: true,
   minify: false,

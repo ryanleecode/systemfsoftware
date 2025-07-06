@@ -1,7 +1,7 @@
 {
   "name": "better-auth-astro",
   "description": "The easiest way to add authentication to your Astro project!",
-  "version": "5.0.5",
+  "version": "5.0.6",
   "type": "module",
   "license": "MIT",
   "exports": {
