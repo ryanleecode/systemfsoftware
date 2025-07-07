@@ -84,7 +84,7 @@ jobs:
       # Create Pull Request using peter-evans action (it will handle branch creation and management)
       - name: Create Release PR
         if: steps.version-bump.outputs.has-changes == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: "release/auto-${{ github.run_number }}"
