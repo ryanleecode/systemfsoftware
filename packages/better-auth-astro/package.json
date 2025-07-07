@@ -63,7 +63,7 @@
   "devDependencies": {
     "@auth/core": "^0.37.3",
     "@total-typescript/tsconfig": "^1.0.4",
-    "@types/node": "^18",
+    "@types/node": "^24",
     "@types/set-cookie-parser": "^2.4.10",
     "astro": "^5",
     "astro-integration-kit": "^0.18.0",
