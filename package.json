@@ -19,7 +19,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@effect/language-service": "^0.23.4",
+    "@effect/language-service": "^0.23.5",
     "@microsoft/api-extractor": "^7.52.8",
     "@microsoft/api-extractor-model": "^7.30.6",
     "@nx/js": "21.2.1",
@@ -29,11 +29,11 @@
     "@vitest/coverage-v8": "3.2.4",
     "@vitest/ui": "^3.0.0",
     "dprint": "^0.50.1",
-    "fast-check": "^4.1.1",
+    "fast-check": "^4.2.0",
     "jiti": "2.4.2",
     "nx": "21.2.1",
     "rimraf": "^6.0.1",
-    "testcontainers": "^11.0.3",
+    "testcontainers": "^11.1.0",
     "tshy": "^3.0.2",
     "vite": "^6.0.0",
     "vitest": "^3.0.0"

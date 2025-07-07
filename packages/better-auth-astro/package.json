@@ -52,7 +52,7 @@
   "author": "Ryan Lee <ryanleecode@gmail.com>",
   "contributors": [],
   "peerDependencies": {
-    "@auth/core": "^0.37.3",
+    "@auth/core": "^0.40.0",
     "astro": "^5"
   },
   "peerDependenciesMeta": {
@@ -61,7 +61,7 @@
     }
   },
   "devDependencies": {
-    "@auth/core": "^0.37.3",
+    "@auth/core": "^0.40.0",
     "@total-typescript/tsconfig": "^1.0.4",
     "@types/node": "^18",
     "@types/set-cookie-parser": "^2.4.10",
